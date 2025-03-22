@@ -13,16 +13,24 @@ saldo = 0
 limite = 500
 extrato = ""
 numero_saques = 0
+numero_transacoes = 0
 LIMITE_SAQUES = 3
+LIMITE_TRANSACOES = 3
 
 while True:
     
     entrada = input("Escolha qual operação deseja realizar: ")
 
+
+
     if(entrada == "d"):
         valor_deposito = float(input("Quanto deseja depositar? :"))
 
-        if(valor_deposito > 0):
+
+        if(numero_transacoes > LIMITE_TRANSACOES):
+            print("Número de transações excedido")
+        
+        elif(valor_deposito > 0):
             saldo += valor_deposito
             extrato += f"""
                 Extrato\n
@@ -30,6 +38,8 @@ while True:
                 Valor depositado: + R${valor_deposito:.2f}\n
                 Saldo: R${saldo:.2f}\n
             """
+        
+            numero_transacoes += 1
         else:
             print("Digite um valor válido")
     
@@ -45,6 +55,9 @@ while True:
         elif(numero_saques > LIMITE_SAQUES):
             print("Número de saques excedido!")
         
+        elif(numero_transacoes > LIMITE_TRANSACOES):
+            print("Número de transações excedido")
+        
         elif(saque > 0):
             saldo -= saque
             extrato += f"""
@@ -55,6 +68,7 @@ while True:
             """
 
             numero_saques += 1
+            numero_transacoes += 1
         
         else:
             print("Valor de saque inválido!")
